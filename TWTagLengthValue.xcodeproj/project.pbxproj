@@ -9,7 +9,12 @@
 /* Begin PBXBuildFile section */
 		DBFD9B111C010AE4008E8A7E /* TWTagLengthValue.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFD9B101C010AE4008E8A7E /* TWTagLengthValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFD9B181C010AE4008E8A7E /* TWTagLengthValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFD9B0D1C010AE4008E8A7E /* TWTagLengthValue.framework */; };
-		DBFD9B1D1C010AE4008E8A7E /* TWTagLengthValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B1C1C010AE4008E8A7E /* TWTagLengthValueTests.swift */; };
+		DBFD9B281C010B04008E8A7E /* TWTLV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B271C010B04008E8A7E /* TWTLV.swift */; };
+		DBFD9B2A1C010E4E008E8A7E /* TWTlvUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B291C010E4E008E8A7E /* TWTlvUtils.swift */; };
+		DBFD9B2C1C0921EE008E8A7E /* TWTLVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B2B1C0921EE008E8A7E /* TWTLVTests.swift */; };
+		DBFD9B2E1C09241A008E8A7E /* TWTlvUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B2D1C09241A008E8A7E /* TWTlvUtilsTests.swift */; };
+		DBFD9B301C093834008E8A7E /* TWExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B2F1C093834008E8A7E /* TWExtensions.swift */; };
+		DBFD9B321C093986008E8A7E /* TWExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B311C093986008E8A7E /* TWExtensionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +32,13 @@
 		DBFD9B101C010AE4008E8A7E /* TWTagLengthValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWTagLengthValue.h; sourceTree = "<group>"; };
 		DBFD9B121C010AE4008E8A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBFD9B171C010AE4008E8A7E /* TWTagLengthValueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTagLengthValueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBFD9B1C1C010AE4008E8A7E /* TWTagLengthValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWTagLengthValueTests.swift; sourceTree = "<group>"; };
 		DBFD9B1E1C010AE4008E8A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBFD9B271C010B04008E8A7E /* TWTLV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTLV.swift; sourceTree = "<group>"; };
+		DBFD9B291C010E4E008E8A7E /* TWTlvUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTlvUtils.swift; sourceTree = "<group>"; };
+		DBFD9B2B1C0921EE008E8A7E /* TWTLVTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTLVTests.swift; sourceTree = "<group>"; };
+		DBFD9B2D1C09241A008E8A7E /* TWTlvUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTlvUtilsTests.swift; sourceTree = "<group>"; };
+		DBFD9B2F1C093834008E8A7E /* TWExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWExtensions.swift; sourceTree = "<group>"; };
+		DBFD9B311C093986008E8A7E /* TWExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWExtensionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +83,9 @@
 			children = (
 				DBFD9B101C010AE4008E8A7E /* TWTagLengthValue.h */,
 				DBFD9B121C010AE4008E8A7E /* Info.plist */,
+				DBFD9B271C010B04008E8A7E /* TWTLV.swift */,
+				DBFD9B291C010E4E008E8A7E /* TWTlvUtils.swift */,
+				DBFD9B2F1C093834008E8A7E /* TWExtensions.swift */,
 			);
 			path = TWTagLengthValue;
 			sourceTree = "<group>";
@@ -80,8 +93,10 @@
 		DBFD9B1B1C010AE4008E8A7E /* TWTagLengthValueTests */ = {
 			isa = PBXGroup;
 			children = (
-				DBFD9B1C1C010AE4008E8A7E /* TWTagLengthValueTests.swift */,
 				DBFD9B1E1C010AE4008E8A7E /* Info.plist */,
+				DBFD9B2B1C0921EE008E8A7E /* TWTLVTests.swift */,
+				DBFD9B2D1C09241A008E8A7E /* TWTlvUtilsTests.swift */,
+				DBFD9B311C093986008E8A7E /* TWExtensionTests.swift */,
 			);
 			path = TWTagLengthValueTests;
 			sourceTree = "<group>";
@@ -194,6 +209,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBFD9B281C010B04008E8A7E /* TWTLV.swift in Sources */,
+				DBFD9B301C093834008E8A7E /* TWExtensions.swift in Sources */,
+				DBFD9B2A1C010E4E008E8A7E /* TWTlvUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBFD9B1D1C010AE4008E8A7E /* TWTagLengthValueTests.swift in Sources */,
+				DBFD9B321C093986008E8A7E /* TWExtensionTests.swift in Sources */,
+				DBFD9B2C1C0921EE008E8A7E /* TWTLVTests.swift in Sources */,
+				DBFD9B2E1C09241A008E8A7E /* TWTlvUtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +328,7 @@
 		DBFD9B221C010AE4008E8A7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -318,12 +339,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ThomasWilson.Development.TWTagLengthValue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		DBFD9B231C010AE4008E8A7E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -376,6 +399,7 @@
 				DBFD9B231C010AE4008E8A7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DBFD9B241C010AE4008E8A7E /* Build configuration list for PBXNativeTarget "TWTagLengthValueTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +408,7 @@
 				DBFD9B261C010AE4008E8A7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
