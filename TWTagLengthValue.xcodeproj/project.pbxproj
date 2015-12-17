@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB1741191C2368CC001308E9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DB1741181C2368CC001308E9 /* README.txt */; };
 		DBFD9B111C010AE4008E8A7E /* TWTagLengthValue.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFD9B101C010AE4008E8A7E /* TWTagLengthValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFD9B181C010AE4008E8A7E /* TWTagLengthValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFD9B0D1C010AE4008E8A7E /* TWTagLengthValue.framework */; };
 		DBFD9B281C010B04008E8A7E /* TWTLV.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFD9B271C010B04008E8A7E /* TWTLV.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB1741181C2368CC001308E9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DBFD9B0D1C010AE4008E8A7E /* TWTagLengthValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TWTagLengthValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFD9B101C010AE4008E8A7E /* TWTagLengthValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWTagLengthValue.h; sourceTree = "<group>"; };
 		DBFD9B121C010AE4008E8A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		DBFD9B031C010AE4008E8A7E = {
 			isa = PBXGroup;
 			children = (
+				DB1741181C2368CC001308E9 /* README.txt */,
 				DBFD9B0F1C010AE4008E8A7E /* TWTagLengthValue */,
 				DBFD9B1B1C010AE4008E8A7E /* TWTagLengthValueTests */,
 				DBFD9B0E1C010AE4008E8A7E /* Products */,
@@ -192,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB1741191C2368CC001308E9 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
