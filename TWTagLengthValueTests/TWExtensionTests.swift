@@ -61,9 +61,10 @@ class TWExtensionTests: XCTestCase {
 		let two:UInt8 = 0x02;
 		let three:UInt8 = 0x03;
 		
-		XCTAssert(one.toAsciiHex().asciiHexToData()![0] == 0x01);
-		XCTAssert(two.toAsciiHex().asciiHexToData()![0] == 0x02);
-		XCTAssert(three.toAsciiHex().asciiHexToData()![0] == 0x03);
+
+		XCTAssertEqual(one.toAsciiHex().asciiHexToData()![0], 0x01)
+		XCTAssertEqual(two.toAsciiHex().asciiHexToData()![0], 0x02);
+		XCTAssertEqual(three.toAsciiHex().asciiHexToData()![0], 0x03);
 		
 		let effeff:UInt8 = 0xFF;
 		XCTAssert(effeff.toAsciiHex().asciiHexToData()![0] == 0xFF);

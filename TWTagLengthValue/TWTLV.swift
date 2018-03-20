@@ -9,55 +9,55 @@
 import Foundation
 private let ExceptionName = "InvalidTLV"
 
-enum TWTLVError: ErrorType{
-	case InvalidTag(description:String)
-	case InvalidLength(description:String)
-	case InvalidDataFormat(description:String)
-	case InvalidOperation(description:String)
+enum TWTLVError: Error{
+	case invalidTag(description:String)
+	case invalidLength(description:String)
+	case invalidDataFormat(description:String)
+	case invalidOperation(description:String)
 }
 
-public class TWTLV : NSObject {
-	public var tagId:UInt64
-	private(set) public var length:UInt64 = 0
-	public var constructed:Bool
-	private var internalValue:[UInt8]?
-	public var value:[UInt8] {
+open class TWTLV : NSObject {
+	open var tagId:UInt64
+	fileprivate(set) open var length:UInt64 = 0
+	open var constructed:Bool
+	fileprivate var internalValue:[UInt8]?
+	open var value:[UInt8] {
 		get{
 			if (!constructed && internalValue != nil){
 				return internalValue!
 			}else if (children.count > 0){
 				var result = [UInt8]()
 				for child in children{
-					result.appendContentsOf(child.data)
+					result.append(contentsOf: child.data)
 				}
 				return result
 			}else {return [0x00]}
 		}
 	}
-	public var data:[UInt8]{
+	open var data:[UInt8]{
 		get {
 			var data = tagId.toByteArray()
-			data.appendContentsOf(length.toByteArray())
-			data.appendContentsOf(self.value)
+			data.append(contentsOf: length.toByteArray())
+			data.append(contentsOf: self.value)
 			return data
 		}
 	}
-	public var children:[TWTLV]
+	open var children:[TWTLV]
 	
 	public convenience init(tagIdStr:String, value:[UInt8]?) throws {
 		let result = cleanHex(tagIdStr)
 		if let tagData = UInt64(result){
 			try self.init(tagId:tagData, value:value)
 		}else{
-			throw TWTLVError.InvalidTag(description: "Invalid Hex String")
+			throw TWTLVError.invalidTag(description: "Invalid Hex String")
 		}
 	}
 	
 	public convenience init(tagId:UInt64, value:[UInt8]?) throws {
 		var tlvData = tagId.toByteArray()
 		if(value != nil){
-				tlvData.appendContentsOf(getLengthData(value!.count))
-				tlvData.appendContentsOf(value!)
+			tlvData.append(contentsOf:getLengthData(value!.count))
+			tlvData.append(contentsOf: value!)
 		}else{
 			tlvData.append(0x00)
 		}
@@ -71,7 +71,7 @@ public class TWTLV : NSObject {
 		try self.init(data:data, offset:&offset);
 	}
 	
-	public init(data:[UInt8], inout offset:Int) throws {
+	public init(data:[UInt8], offset:inout Int) throws {
 		tagId = 0x00
 		length = 0x00
 		constructed = false;
@@ -87,7 +87,7 @@ public class TWTLV : NSObject {
 			let length = TWTLV.getLength(data, offset: &offset)
 			self.length = length
 			if(length > UInt64(data.count-offset)){
-				throw TWTLVError.InvalidLength(description: "Length greater than data array")
+				throw TWTLVError.invalidLength(description: "Length greater than data array")
 			}else if(length == 0x00){
 				return
 			}
@@ -99,20 +99,20 @@ public class TWTLV : NSObject {
 				offset = end
 			}
 		}else{
-			throw TWTLVError.InvalidDataFormat(description: "Invalid tag id")
+			throw TWTLVError.invalidDataFormat(description: "Invalid tag id")
 		}
 	}
 	
-	public func addChild(tagid:UInt64, data:[UInt8]) throws {
+	open func addChild(_ tagid:UInt64, data:[UInt8]) throws {
 		let child = try TWTLV.init(tagId: tagid, value: data);
 		if !constructed{
-			throw TWTLVError.InvalidOperation(description: "Tag Id \(self.tagId) marked as primitive")
+			throw TWTLVError.invalidOperation(description: "Tag Id \(self.tagId) marked as primitive")
 		}
 		self.children.append(child)
 		self.length += UInt64(child.data.count)
 	}
 	
-	public func printableTlv(level:Int = 1) -> String{
+	open func printableTlv(_ level:Int = 1) -> String{
 		var tlvStr = ""
 		
 		let tagData = tagId.toByteArray()
@@ -129,7 +129,7 @@ public class TWTLV : NSObject {
 			if(constructed){
 				tlvStr += "\n"
 				for child in children{
-					tlvStr = tlvStr.stringByPaddingToLength(tlvStr.characters.count+level, withString: "\t", startingAtIndex:0)
+					tlvStr = tlvStr.padding(toLength: tlvStr.characters.count+level, withPad: "\t", startingAt:0)
 					tlvStr += child.printableTlv(level+1)
 				}
 				
@@ -147,36 +147,38 @@ public class TWTLV : NSObject {
 		return tlvStr
 	}
 	
-	private static func getTagId(data:[UInt8], inout offset:Int) -> UInt64? {
+	fileprivate static func getTagId(_ data:[UInt8], offset:inout Int) -> UInt64? {
 		var tagArray:[UInt8] = [UInt8]()
 		tagArray.append(data[offset]);
 		while((data[offset] & 0x1F) == 0x1F){
-			offset++;
+			offset += 1;
 			tagArray.append(data[offset])
 		}
-		offset++
+		offset += 1
 		return arrayToUInt64(tagArray);
 	}
 	
-	private static func getLength(data:[UInt8], inout offset:Int) -> UInt64{
+	fileprivate static func getLength(_ data:[UInt8], offset:inout Int) -> UInt64{
 		if(data.count == offset){
 			return 0x00
 		}
 		if((data[offset] & 0x80) == 0x80){
 			let lengthCount:UInt8 = data[offset] ^ 0x80;
-			offset++
+			offset += 1
 			let end = offset + Int(lengthCount)
 			let lengthBytes:[UInt8] = Array(data[offset...end]);
 			offset = (end+1)
-			return UnsafePointer<UInt64>(lengthBytes).memory
+			return UInt64(lengthBytes.withUnsafeBufferPointer {
+				($0.baseAddress!.withMemoryRebound(to: UInt32.self, capacity: 1) { $0 })
+				}.pointee);
 		}else{
 			let result = data[offset];
-			offset++
+			offset += 1
 			return UInt64(result);
 		}
 	}
 	
-	private static func getChildern(data:[UInt8], length:UInt64, inout offset:Int) throws -> [TWTLV]{
+	fileprivate static func getChildern(_ data:[UInt8], length:UInt64, offset:inout Int) throws -> [TWTLV]{
 		var children = [TWTLV]()
 		while (offset < data.count){
 			children.append(try TWTLV.init(data: data, offset:&offset));

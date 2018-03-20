@@ -9,18 +9,18 @@
 import Foundation
 
 
-func bytesUsed(value:UInt64) -> UInt8{
+func bytesUsed(_ value:UInt64) -> UInt8{
 	let array = value.toByteArray()
 	var count:UInt8 = 0;
 	for byte in array {
 		if byte > 0 {
-			count++;
+			count += 1;
 		}
 	}
 	return count
 }
 
-func getLengthData(length:Int) -> [UInt8]{
+func getLengthData(_ length:Int) -> [UInt8]{
 	if(length > 127){
 		var result = [UInt8]()
 		let byteCount = bytesUsed(UInt64(length))
@@ -38,23 +38,25 @@ func getLengthData(length:Int) -> [UInt8]{
 	}
 }
 
-func arrayToUInt64(data:[UInt8]) -> UInt64?{
+func arrayToUInt64(_ data:[UInt8]) -> UInt64?{
 	if(data.count > 8){
 		return nil;
 	}
-	let temp = NSData(bytes: data.reverse(), length: data.count)
-	return UnsafePointer<UInt64>(temp.bytes).memory
+	let nsdata = NSData(bytes: data.reversed(), length: data.count);
+	var temp:UInt64 = 0;
+	nsdata.getBytes(&temp, length: MemoryLayout<UInt64>.size);
+	return temp;
 }
 
-func cleanHex(hexStr:String) -> String{
-	return hexStr.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<> ")).stringByReplacingOccurrencesOfString(" ", withString: "")
+func cleanHex(_ hexStr:String) -> String{
+	return hexStr.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
 }
 
-public func isValidHex(asciiHex:String) -> Bool{
-	let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .CaseInsensitive)
+public func isValidHex(_ asciiHex:String) -> Bool{
+	let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .caseInsensitive)
 	
-	let found = regex.firstMatchInString(asciiHex, options: [], range: NSMakeRange(0, asciiHex.characters.count))
-	if found == nil || found?.range.location == NSNotFound || asciiHex.characters.count % 2 != 0 {
+	let found = regex.firstMatch(in: asciiHex, options: [], range: NSMakeRange(0, asciiHex.count))
+	if found == nil || found?.range.location == NSNotFound || asciiHex.count % 2 != 0 {
 		return false;
 	}
 	

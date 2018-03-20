@@ -10,13 +10,10 @@ import Foundation
 
 extension Int {
 	func toByteArray() -> [UInt8]{
-		var moo = self
-		var array = withUnsafePointer(&moo) {
-			return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: sizeof(Int)))
-		}
-		array = array.reverse()
-		
-		guard let index = array.indexOf({$0 > 0}) else {
+		var moo = self;
+		var array = withUnsafeBytes(of: &moo) { Array($0) }
+		array = array.reversed()
+		guard let index = array.index(where: {$0 > 0}) else {
 			return Array(array)
 		}
 		
@@ -31,12 +28,10 @@ extension Int {
 extension UInt64 {
 	func toByteArray() -> [UInt8]{
 		var moo = self
-		var array = withUnsafePointer(&moo) {
-			return Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: sizeof(UInt64)))
-		}
-		array = array.reverse()
+		var array = withUnsafeBytes(of: &moo) { Array($0) }
+		array = array.reversed()
 		
-		guard let index = array.indexOf({$0 > 0}) else {
+		guard let index = array.index(where: {$0 > 0}) else {
 			return Array(array)
 		}
 		
@@ -62,15 +57,23 @@ extension UInt8 {
 
 extension String{
 	public func asciiHexToData() -> [UInt8]?{
-		let trimmedString = self.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<> ")).stringByReplacingOccurrencesOfString(" ", withString: "")
+		
+		let trimmedString = self.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
 		
 		if(isValidHex(trimmedString)){
 			var data = [UInt8]()
-			
-			for var index = trimmedString.startIndex; index < trimmedString.endIndex; index = index.successor().successor() {
-				let byteString = trimmedString.substringWithRange(Range<String.Index>(start: index, end: index.successor().successor()))
-				let num = UInt8(byteString.withCString { strtoul($0, nil, 16) })
-				data.append(num)
+			var index = 0
+			while index < trimmedString.count {
+
+				let start = trimmedString.index(trimmedString.startIndex, offsetBy: index);
+				let finish = trimmedString.index(trimmedString.startIndex,offsetBy: index+1);
+				let range = start...finish
+				let byteString = trimmedString[range]
+				
+				let byte = UInt8(byteString.withCString { strtoul($0, nil, 16) })
+				data.append(byte)
+
+				index = index+2;
 			}
 			
 			return data
