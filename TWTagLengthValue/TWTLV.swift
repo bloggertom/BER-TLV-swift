@@ -129,7 +129,7 @@ open class TWTLV : NSObject {
 			if(constructed){
 				tlvStr += "\n"
 				for child in children{
-					tlvStr = tlvStr.padding(toLength: tlvStr.characters.count+level, withPad: "\t", startingAt:0)
+					tlvStr = tlvStr.padding(toLength: tlvStr.count+level, withPad: "\t", startingAt:0)
 					tlvStr += child.printableTlv(level+1)
 				}
 				
